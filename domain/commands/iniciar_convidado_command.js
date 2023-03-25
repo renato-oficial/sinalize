@@ -1,6 +1,7 @@
 const { UserService } = require("../../aplicacao/services/user_service");
 const { UserRepository } = require("../../infra/repository/user_repository");
 const User = require("../entity/UserModel");
+const { banner } = require("./banner");
 
 const iniciarComoAfiliado = async (ctx, hostedById) => {
   const user_repository = new UserRepository();
@@ -25,6 +26,7 @@ const iniciarComoAfiliado = async (ctx, hostedById) => {
     if (!hosteUser.length) return;
 
     await user_service.inserInvitedUser(hosteUser[0], id);
+    await banner(ctx);
   } catch (error) {
     console.error(error);
   }
